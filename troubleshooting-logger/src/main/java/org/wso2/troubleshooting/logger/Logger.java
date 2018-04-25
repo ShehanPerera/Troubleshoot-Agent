@@ -17,10 +17,6 @@
 */
 package org.wso2.troubleshooting.logger;
 
-/**
- * This is logger using for get details of threads
- */
-
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -28,27 +24,32 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+/**
+ * This is logger using for get details of threads
+ */
 public class Logger {
 
     private static Logger logger = new Logger();
-    File Dir;
-    File file;
-    FileWriter fileWriter;
-    DateFormat dateFormat;
-    Date date = new Date();
+    private final File dir = new File("../logs");
+    private final File file = new File(dir, "troubleshoot.log");
+    private final DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss,SSS");
+    private final FileWriter fileWriter;
+    private Date date;
 
     private Logger() {
 
-        Dir = new File("../logs");
-        file = new File(Dir, "troubleshoot.log");
-        createFile();
+        dir.mkdir();
         try {
-            fileWriter = new FileWriter(file, true);
+            file.createNewFile();
         } catch (IOException e) {
-            e.printStackTrace();
+            throw new RuntimeException(e);
         }
-        dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss,SSS");
-        date = new Date();
+        try {
+            fileWriter = new FileWriter(file.getAbsoluteFile(), true);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
     }
 
     public static Logger getInstance() {
@@ -56,25 +57,28 @@ public class Logger {
         return logger;
     }
 
-    public void createFile() {
+    public void info(String message) {
 
-        Dir = new File("../logs");
-        Dir.mkdir();
-        file = new File(Dir, "troubleshoot.log");
         try {
-            file.createNewFile();
+            date = new Date();
+            fileWriter.write(dateFormat.format(date) + " INFO : " + message);
+            fileWriter.write("\n");
         } catch (IOException e) {
-            error(e);
+            throw new RuntimeException(e);
         }
     }
 
-    public void log(String message) {
+    public void error(String message) {
 
         try {
-            fileWriter.write(dateFormat.format(date) + "  " + message);
+            fileWriter.write("");
+            date = new Date();
+            fileWriter.write(dateFormat.format(date) + " ERROR : " + message);
+            fileWriter.write("\n");
         } catch (IOException e) {
-            e.printStackTrace();
+            throw new RuntimeException(e);
         }
+
     }
 
     public void stoplog() {
@@ -82,28 +86,8 @@ public class Logger {
         try {
             fileWriter.close();
         } catch (IOException e) {
-            e.printStackTrace();
+            throw new RuntimeException(e);
         }
-    }
-
-    public void error(Exception message) {
-
-        StackTraceElement[] elements = message.getStackTrace();
-        try {
-            fileWriter.write("Error :" + message.toString());
-            fileWriter.write("\n");
-            for (int i = 1; i < elements.length; i++) {
-                StackTraceElement s = elements[i];
-
-                fileWriter.write(dateFormat.format(date) + "\tat " + s.getClassName() + "." + s.getMethodName() + "("
-                        + s.getFileName() + ":"
-                        + s.getLineNumber() + ")\n");
-            }
-            fileWriter.write("\n");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
     }
 
 }
