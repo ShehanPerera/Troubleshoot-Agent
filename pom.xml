@@ -11,7 +11,6 @@
     <modules>
         <module>troubleshooting-logger</module>
         <module>troubleshooting-agent</module>
-       <module>threadpool-sample</module>
     </modules>
 
     <dependencies>
