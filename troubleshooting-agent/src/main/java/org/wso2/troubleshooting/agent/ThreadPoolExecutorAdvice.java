@@ -45,6 +45,7 @@ public class ThreadPoolExecutorAdvice {
                 logger.log("\tat " + s.getClassName() + "." + s.getMethodName() + "(" + s.getFileName() + ":"
                         + s.getLineNumber() + ")\n");
             }
+
             logger.stoplog();
         }
 
