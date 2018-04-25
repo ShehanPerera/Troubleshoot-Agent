@@ -25,6 +25,7 @@ import org.wso2.troubleshooting.logger.Logger;
 import java.io.File;
 import java.io.IOException;
 import java.lang.instrument.Instrumentation;
+import java.util.Enumeration;
 import java.util.jar.JarFile;
 
 /**
@@ -34,26 +35,40 @@ public class Agent {
 
     public static void premain(String arguments, Instrumentation instrumentation) {
 
+        Logger logger = Logger.getInstance();
+
         JarFile jarFile = null;
         try {
             jarFile = new JarFile(new File("troubleshooting-logger-1.0-SNAPSHOT.jar"));
 
         } catch (IOException e) {
-            e.printStackTrace();
+            logger.error(e);
         }
         instrumentation.appendToBootstrapClassLoaderSearch(jarFile);
-
-        System.out.println("Troubleshoot Agent");
-
-        Logger loggers = Logger.getInstance();
-        loggers.log();
-
+        logger.log("Troubleshoot Agent start!!\n");
+        logger.log("System Details : \n");
+        Enumeration<String> propertyNames = (Enumeration<String>) System.getProperties().propertyNames();
+        while (propertyNames.hasMoreElements()) {
+            String propName = propertyNames.nextElement();
+            logger.log(propName + " = " + System.getProperty
+                    (propName) + "\n");
+        }
+        logger.log("\n");
+        logger.log("Thread Details: \n");
+        StackTraceElement[] elements = Thread.currentThread().getStackTrace();
+        for (int i = 1; i < elements.length; i++) {
+            StackTraceElement s = elements[i];
+            logger.log("\tat " + s.getClassName() + "." + s.getMethodName() + "(" + s.getFileName() + ":"
+                    + s.getLineNumber() + ")\n");
+        }
+        logger.stoplog();
         new AgentBuilder.Default()
                 .ignore(ElementMatchers.none())
                 .type(ElementMatchers.nameContains("ThreadPoolExecutor"))
                 .transform((builder, type, classLoader, module) -> builder
                         .visit(Advice.to(ThreadPoolExecutorAdvice.class).on(ElementMatchers.any()))
                 ).installOn(instrumentation);
+
     }
 
 }
