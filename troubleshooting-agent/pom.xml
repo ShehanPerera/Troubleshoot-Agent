@@ -49,7 +49,7 @@
                                     <manifestEntries>
                                         <addClasspath>true</addClasspath>
                                         <classpathPrefix>lib/</classpathPrefix>
-                                        <Premain-Class>org.wso2.troubleshooting.logger.Agent</Premain-Class>
+                                        <Premain-Class>org.wso2.troubleshooting.agent.Agent</Premain-Class>
                                     </manifestEntries>
                                 </transformer>
                             </transformers>
