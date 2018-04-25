@@ -37,30 +37,31 @@ public class Agent {
 
         Logger logger = Logger.getInstance();
 
-        JarFile jarFile = null;
+        JarFile loggerJarFile;
         try {
-            jarFile = new JarFile(new File("troubleshooting-logger-1.0-SNAPSHOT.jar"));
+            loggerJarFile = new JarFile(new File("troubleshooting-logger-1.0-SNAPSHOT.jar"));
 
         } catch (IOException e) {
-            logger.error(e);
+            throw new RuntimeException(e);
         }
-        instrumentation.appendToBootstrapClassLoaderSearch(jarFile);
-        logger.log("Troubleshoot Agent start!!\n");
-        logger.log("System Details : \n");
+
+        instrumentation.appendToBootstrapClassLoaderSearch(loggerJarFile);
+
+        logger.info("Troubleshoot Agent start!!");
+        logger.info("System Details : ");
         Enumeration<String> propertyNames = (Enumeration<String>) System.getProperties().propertyNames();
         while (propertyNames.hasMoreElements()) {
             String propName = propertyNames.nextElement();
-            logger.log(propName + " = " + System.getProperty
-                    (propName) + "\n");
+            logger.info(propName + " = " + System.getProperty(propName));
         }
-        logger.log("\n");
-        logger.log("Thread Details: \n");
+        logger.info("Thread Details:");
         StackTraceElement[] elements = Thread.currentThread().getStackTrace();
         for (int i = 1; i < elements.length; i++) {
             StackTraceElement s = elements[i];
-            logger.log("\tat " + s.getClassName() + "." + s.getMethodName() + "(" + s.getFileName() + ":"
-                    + s.getLineNumber() + ")\n");
+            logger.info("\tat " + s.getClassName() + "." + s.getMethodName() + "(" + s.getFileName() + ":"
+                    + s.getLineNumber() + ")");
         }
+
         logger.stoplog();
         new AgentBuilder.Default()
                 .ignore(ElementMatchers.none())
