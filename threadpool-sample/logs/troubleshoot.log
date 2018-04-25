@@ -1,0 +1,71 @@
+System Details : 
+      java.runtime.name = Java(TM) SE Runtime Environment
+      sun.boot.library.path = /usr/lib/jvm/java-8-oracle/jre/lib/amd64
+      java.vm.version = 25.151-b12
+      java.vm.vendor = Oracle Corporation
+      java.vendor.url = http://java.oracle.com/
+      path.separator = :
+      java.vm.name = Java HotSpot(TM) 64-Bit Server VM
+      file.encoding.pkg = sun.io
+      user.country = US
+      sun.java.launcher = SUN_STANDARD
+      sun.os.patch.level = unknown
+      java.vm.specification.name = Java Virtual Machine Specification
+      user.dir = /home/shehan/IdeaProjects/troubleshooting-agent/threadpool-sample/target
+      java.runtime.version = 1.8.0_151-b12
+      java.awt.graphicsenv = sun.awt.X11GraphicsEnvironment
+      java.endorsed.dirs = /usr/lib/jvm/java-8-oracle/jre/lib/endorsed
+      os.arch = amd64
+      java.io.tmpdir = /tmp
+      line.separator = 
+
+      java.vm.specification.vendor = Oracle Corporation
+      os.name = Linux
+      sun.jnu.encoding = UTF-8
+      java.library.path = /usr/java/packages/lib/amd64:/usr/lib64:/lib64:/lib:/usr/lib
+      java.specification.name = Java Platform API Specification
+      java.class.version = 52.0
+      sun.management.compiler = HotSpot 64-Bit Tiered Compilers
+      os.version = 4.13.0-38-generic
+      user.home = /home/shehan
+      user.timezone = Asia/Colombo
+      java.awt.printerjob = sun.print.PSPrinterJob
+      file.encoding = UTF-8
+      java.specification.version = 1.8
+      user.name = shehan
+      java.class.path = threadpool-sample-1.0-SNAPSHOT.jar:troubleshooting-agent-1.0-SNAPSHOT.jar
+      java.vm.specification.version = 1.8
+      sun.arch.data.model = 64
+      java.home = /usr/lib/jvm/java-8-oracle/jre
+      sun.java.command = threadpool-sample-1.0-SNAPSHOT.jar
+      java.specification.vendor = Oracle Corporation
+      user.language = en
+      awt.toolkit = sun.awt.X11.XToolkit
+      java.vm.info = mixed mode
+      java.version = 1.8.0_151
+      java.ext.dirs = /usr/lib/jvm/java-8-oracle/jre/lib/ext:/usr/java/packages/lib/ext
+      sun.boot.class.path = /usr/lib/jvm/java-8-oracle/jre/lib/resources.jar:/usr/lib/jvm/java-8-oracle/jre/lib/rt.jar:/usr/lib/jvm/java-8-oracle/jre/lib/sunrsasign.jar:/usr/lib/jvm/java-8-oracle/jre/lib/jsse.jar:/usr/lib/jvm/java-8-oracle/jre/lib/jce.jar:/usr/lib/jvm/java-8-oracle/jre/lib/charsets.jar:/usr/lib/jvm/java-8-oracle/jre/lib/jfr.jar:/usr/lib/jvm/java-8-oracle/jre/classes:/opt/dynatrace/oneagent/agent/bin/1.137.152.20180214-083415/any/oneagentjava.jar:/opt/dynatrace/oneagent/agent/bin/1.137.152.20180214-083415/any/oneagentjava.rmi.jar:/opt/dynatrace/oneagent/agent/bin/1.137.152.20180214-083415/any/oneagentjava.sql.jar
+      java.vendor = Oracle Corporation
+      file.separator = /
+      java.vendor.url.bug = http://bugreport.sun.com/bugreport/
+      sun.cpu.endian = little
+      sun.io.unicode.encoding = UnicodeLittle
+      sun.desktop = gnome
+      sun.cpu.isalist = 
+Thread Details :
+    	at org.wso2.troubleshooting.Logger.logsOnAgent(Logger.java:84)
+    	at org.wso2.troubleshooting.Agent.premain(Agent.java:48)
+    	at sun.reflect.NativeMethodAccessorImpl.invoke0(NativeMethodAccessorImpl.java:-2)
+    	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+    	at java.lang.reflect.Method.invoke(Method.java:498)
+    	at sun.instrument.InstrumentationImpl.loadClassAndStartAgent(InstrumentationImpl.java:386)
+    	at sun.instrument.InstrumentationImpl.loadClassAndCallPremain(InstrumentationImpl.java:401)
+ThreadPool Details: 
+  CorePoolSize is : 3
+  MaximumPoolSize is : 3
+2018-04-25 12:46:27,073 INFO -	at org.wso2.troubleshooting.Logger.logsOnThreadPool(Logger.java:104)
+2018-04-25 12:46:27,073 INFO -	at java.util.concurrent.ThreadPoolExecutor.<init>(ThreadPoolExecutor.java:1204)
+2018-04-25 12:46:27,073 INFO -	at java.util.concurrent.Executors.newFixedThreadPool(Executors.java:89)
+2018-04-25 12:46:27,073 INFO -	at org.wso2.troubleshooting.RunThreads.main(RunThreads.java:35)
+
