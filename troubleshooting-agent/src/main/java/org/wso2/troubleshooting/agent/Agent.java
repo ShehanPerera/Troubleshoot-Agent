@@ -47,7 +47,7 @@ public class Agent {
 
         instrumentation.appendToBootstrapClassLoaderSearch(loggerJarFile);
 
-        logger.info("Troubleshoot Agent start!!");
+        logger.info("Troubleshooting Agent start!!");
         logger.info("System Details : ");
         Enumeration<String> propertyNames = (Enumeration<String>) System.getProperties().propertyNames();
         while (propertyNames.hasMoreElements()) {
@@ -57,12 +57,12 @@ public class Agent {
         logger.info("Thread Details:");
         StackTraceElement[] elements = Thread.currentThread().getStackTrace();
         for (int i = 1; i < elements.length; i++) {
-            StackTraceElement s = elements[i];
-            logger.info("\tat " + s.getClassName() + "." + s.getMethodName() + "(" + s.getFileName() + ":"
-                    + s.getLineNumber() + ")");
+            StackTraceElement threadElement = elements[i];
+            logger.info("\tat " + threadElement.getClassName() + "." + threadElement.getMethodName()
+                    + "(" + threadElement.getFileName() + ":" + threadElement.getLineNumber() + ")");
         }
-
         logger.stoplog();
+
         new AgentBuilder.Default()
                 .ignore(ElementMatchers.none())
                 .type(ElementMatchers.nameContains("ThreadPoolExecutor"))
