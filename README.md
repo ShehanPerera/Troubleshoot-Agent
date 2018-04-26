@@ -4,7 +4,7 @@
 
 1.Get the Troubleshooting agent 
 
-`https://github.com/ShehanPerera/Troubleshoot-Agent.git`
+`git clone https://github.com/ShehanPerera/Troubleshoot-Agent.git`
 
 2.Install the package 
 
