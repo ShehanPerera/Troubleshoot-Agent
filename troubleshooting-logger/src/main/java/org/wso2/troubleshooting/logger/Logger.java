@@ -20,8 +20,7 @@ package org.wso2.troubleshooting.logger;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
+import java.text.MessageFormat;
 import java.util.Date;
 
 /**
@@ -29,27 +28,25 @@ import java.util.Date;
  */
 public class Logger {
 
-    private static Logger logger = new Logger();
-    private final File dir = new File("../logs");
-    private final File file = new File(dir, "troubleshoot.log");
-    private final DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss,SSS");
+    private final static String LOG_FORMAT = "{0,date,yyyy-MM-dd HH:mm:ss,SSS} {1} {2}\n";
+    private final static File dir = new File("../logs");
+    private final static File logFile = new File(dir, "troubleshoot.log");
+    private final static Logger logger = new Logger();
     private final FileWriter fileWriter;
-    private Date date;
 
     private Logger() {
 
         dir.mkdir();
         try {
-            file.createNewFile();
+            logFile.createNewFile();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
         try {
-            fileWriter = new FileWriter(file.getAbsoluteFile(), true);
+            fileWriter = new FileWriter(logFile.getAbsoluteFile(), true);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-
     }
 
     public static Logger getInstance() {
@@ -60,9 +57,7 @@ public class Logger {
     public void info(String message) {
 
         try {
-            date = new Date();
-            fileWriter.write(dateFormat.format(date) + " INFO : " + message);
-            fileWriter.write("\n");
+            fileWriter.write(MessageFormat.format(LOG_FORMAT, new Date(), "INFO : ", message));
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -71,10 +66,7 @@ public class Logger {
     public void error(String message) {
 
         try {
-            fileWriter.write("");
-            date = new Date();
-            fileWriter.write(dateFormat.format(date) + " ERROR : " + message);
-            fileWriter.write("\n");
+            fileWriter.write(MessageFormat.format(LOG_FORMAT, new Date(), "ERROR : ", message));
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -84,6 +76,7 @@ public class Logger {
     public void stoplog() {
 
         try {
+            fileWriter.write("\n");
             fileWriter.close();
         } catch (IOException e) {
             throw new RuntimeException(e);
