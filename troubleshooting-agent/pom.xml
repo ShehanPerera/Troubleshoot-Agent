@@ -26,7 +26,6 @@
     </parent>
 
     <modelVersion>4.0.0</modelVersion>
-    <groupId>org.wso2.troubleshooting</groupId>
     <artifactId>troubleshooting-agent</artifactId>
     <packaging>jar</packaging>
     <version>1.0-SNAPSHOT</version>
