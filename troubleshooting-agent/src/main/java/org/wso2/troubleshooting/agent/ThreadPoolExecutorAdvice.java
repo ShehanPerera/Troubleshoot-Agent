@@ -41,15 +41,13 @@ public class ThreadPoolExecutorAdvice {
             logger.info("MaximumPoolSize is :" + maximumPoolSize);
             StackTraceElement[] elements = Thread.currentThread().getStackTrace();
             for (int i = 1; i < elements.length; i++) {
-                StackTraceElement s = elements[i];
-                logger.info("\tat " + s.getClassName() + "." + s.getMethodName() + "(" + s.getFileName() + ":"
-                        + s.getLineNumber() + ")");
+                StackTraceElement threadElement = elements[i];
+                logger.info("\tat " + threadElement.getClassName() + "." + threadElement.getMethodName() + "(" + threadElement.getFileName() + ":"
+                        + threadElement.getLineNumber() + ")");
             }
             logger.stoplog();
         }
 
     }
 }
-
-
 
